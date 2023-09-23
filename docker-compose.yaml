@@ -1,0 +1,28 @@
+version: "3.0"
+
+services:
+  hoppscotch:
+    image: hoppscotch/hoppscotch:latest
+    ports:
+      - 3000:3000
+      - 3100:3100
+      - 3170:3170
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: hoppscotch
+      POSTGRES_PASSWORD: hoppscotch
+      POSTGRES_DB: hoppscotch
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgresdata:
+
